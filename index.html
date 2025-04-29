@@ -1,65 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vita - Coming Soon</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vita – Coming Soon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #00C9FF, #92FE9D);
-      height: 100vh;
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      flex-direction: column;
+      box-sizing: border-box;
     }
-
+    body, html {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+      animation: fadeIn 2s ease;
+    }
     h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
+      font-weight: 600;
     }
-
     p {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
       margin-bottom: 2rem;
     }
-
-    .notify-button {
-      padding: 0.8rem 2rem;
+    .countdown div {
+      font-size: 1.5rem;
+    }
+    .email-form input {
+      padding: 0.75rem 1rem;
       font-size: 1rem;
       border: none;
       border-radius: 30px;
-      background-color: #ffffff;
-      color: #00C9FF;
+      margin-right: 0.5rem;
+      outline: none;
+    }
+    .email-form button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      background: #00c6ff;
+      color: white;
       cursor: pointer;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s ease;
+    }
+    .email-form button:hover {
+      background: #007acc;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .notify-button:hover {
-      background-color: #00C9FF;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9rem;
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .countdown div { font-size: 1.2rem; }
+      .email-form input { width: 100%; margin-bottom: 1rem; }
+      .email-form button { width: 100%; }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Vita</h1>
+    <p>Your health, reimagined. We're launching soon.</p>
+    
+    <div class="countdown" id="countdown">
+      <div><span id="days">00</span> days</div>
+      <div><span id="hours">00</span> hours</div>
+      <div><span id="minutes">00</span> mins</div>
+      <div><span id="seconds">00</span> secs</div>
+    </div>
 
-  <h1>Vita</h1>
-  <p>We're launching soon! Stay tuned for something amazing.</p>
-  <button class="notify-button">Notify Me</button>
+    <form class="email-form">
+      <input type="email" placeholder="Enter your email" required />
+      <button type="submit">Notify Me</button>
+    </form>
+  </div>
 
-  <footer>© 2025 Vita. All rights reserved.</footer>
+  <script>
+    // Countdown timer
+    const targetDate = new Date("2025-06-01T00:00:00").getTime();
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
 
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        daysEl.innerHTML = hoursEl.innerHTML = minutesEl.innerHTML = secondsEl.innerHTML = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      daysEl.innerHTML = String(days).padStart(2, '0');
+      hoursEl.innerHTML = String(hours).padStart(2, '0');
+      minutesEl.innerHTML = String(minutes).padStart(2, '0');
+      secondsEl.innerHTML = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
