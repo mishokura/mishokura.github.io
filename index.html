@@ -1,117 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vita – Coming Soon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body, html {
-      height: 100%;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(ellipse at top, rgba(0,0,50,0.7), #0f2027), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(15, 32, 39, 0.7);
-      backdrop-filter: blur(2px);
-      z-index: 0;
-    }
-    .container {
-      text-align: center;
-      padding: 2rem;
-      z-index: 1;
-      animation: fadeIn 2s ease;
-      position: relative;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.85;
-    }
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .countdown div {
-      font-size: 1.5rem;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ვიტა - მალე</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            /* Solid, appealing background color */
+            background: linear-gradient(45deg, #7c4dff, #4a90e2);
+            font-family: 'Noto Sans Georgian', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      .countdown div { font-size: 1.2rem; }
-    }
-  </style>
+        .container {
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            color: #ffffff; /* Changed text color to white for better contrast on the blue background */
+            font-size: 3rem;
+            margin: 0;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo {
+                width: 150px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 120px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="container">
-    <h1>Vita</h1>
-    <p>We're launching soon.</p>
-    
-    <div class="countdown" id="countdown">
-      <div><span id="days">00</span> days</div>
-      <div><span id="hours">00</span> hours</div>
-      <div><span id="minutes">00</span> mins</div>
-      <div><span id="seconds">00</span> secs</div>
+    <div class="container">
+        <img src="assets/img/Vita_logo_white.png" alt="VITA Logo" class="logo">
+        <h1>მალე</h1>
     </div>
-  </div>
-
-  <script>
-    // Countdown timer
-    const targetDate = new Date("2025-06-01T00:00:00").getTime();
-    const daysEl = document.getElementById("days");
-    const hoursEl = document.getElementById("hours");
-    const minutesEl = document.getElementById("minutes");
-    const secondsEl = document.getElementById("seconds");
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        daysEl.innerHTML = hoursEl.innerHTML = minutesEl.innerHTML = secondsEl.innerHTML = "00";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      daysEl.innerHTML = String(days).padStart(2, '0');
-      hoursEl.innerHTML = String(hours).padStart(2, '0');
-      minutesEl.innerHTML = String(minutes).padStart(2, '0');
-      secondsEl.innerHTML = String(seconds).padStart(2, '0');
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
 </body>
 </html>
